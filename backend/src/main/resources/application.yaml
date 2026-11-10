@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: payment
+
+  datasource:
+    url: jdbc:h2:file:./data/database
+    username: matheus
+    password: 1352
+
+  h2:
+    console:
+      enabled: true
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
