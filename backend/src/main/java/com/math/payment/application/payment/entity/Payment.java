@@ -37,11 +37,11 @@ public class Payment extends BaseEntity {
     private LocalDate paidDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "contact_id")
+    @JoinColumn(name = "paid_by_contact_id")
     private Contact paidBy;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "contact_id")
+    @JoinColumn(name = "paid_for_contact_id")
     private Contact paidFor;
 
     public Payment(String description, BigDecimal amount,
