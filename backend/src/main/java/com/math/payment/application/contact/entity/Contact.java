@@ -29,9 +29,6 @@ public class Contact extends BaseEntity {
     @Column(unique = true)
     private String email;
 
-    @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<Payment> payments = new ArrayList<>();
-
     public Contact(String name, String phoneNumber, String email) {
         this.name = name;
         this.phoneNumber = phoneNumber;

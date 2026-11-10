@@ -2,4 +2,3 @@
 **/target/
 backend/data/*.mv.db
 backend/data/*.trace.db
-

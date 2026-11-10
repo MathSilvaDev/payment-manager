@@ -34,19 +34,19 @@ public class Payment extends BaseEntity {
     @Column(nullable = false)
     private PaymentType paymentType;
 
-    private String paidBy;
-
-    private String paidFor;
-
     private LocalDate paidDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "contact_id")
-    private Contact contact;
+    private Contact paidBy;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "contact_id")
+    private Contact paidFor;
 
     public Payment(String description, BigDecimal amount,
                    BigDecimal feeAmount, PaymentType paymentType,
-                   String paidBy, String paidFor, LocalDate paidDate) {
+                   Contact paidBy, Contact paidFor, LocalDate paidDate) {
         this.description = description;
         this.amount = amount;
         this.feeAmount = feeAmount;
