@@ -1,6 +1,6 @@
-package com.math.payment.application.contact.repository;
+package com.math.payment.domain.contact.repository;
 
-import com.math.payment.application.contact.entity.Contact;
+import com.math.payment.domain.contact.entity.Contact;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

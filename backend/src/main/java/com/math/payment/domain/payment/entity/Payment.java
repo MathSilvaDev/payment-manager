@@ -1,8 +1,8 @@
-package com.math.payment.application.payment.entity;
+package com.math.payment.domain.payment.entity;
 
-import com.math.payment.application.contact.entity.Contact;
-import com.math.payment.application.entity.BaseEntity;
-import com.math.payment.application.payment.enums.PaymentType;
+import com.math.payment.domain.contact.entity.Contact;
+import com.math.payment.domain.entity.BaseEntity;
+import com.math.payment.domain.payment.enums.PaymentType;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;

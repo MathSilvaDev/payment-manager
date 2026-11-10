@@ -1,6 +1,6 @@
-package com.math.payment.application.payment.repository;
+package com.math.payment.domain.payment.repository;
 
-import com.math.payment.application.payment.entity.Payment;
+import com.math.payment.domain.payment.entity.Payment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

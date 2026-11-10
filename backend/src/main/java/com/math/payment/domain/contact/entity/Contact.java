@@ -1,14 +1,10 @@
-package com.math.payment.application.contact.entity;
+package com.math.payment.domain.contact.entity;
 
-import com.math.payment.application.entity.BaseEntity;
-import com.math.payment.application.payment.entity.Payment;
+import com.math.payment.domain.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "contacts")

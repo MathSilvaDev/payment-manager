@@ -1,4 +1,4 @@
-package com.math.payment.application.payment.enums;
+package com.math.payment.domain.payment.enums;
 
 public enum PaymentType {
     PIX,
