@@ -60,15 +60,11 @@ public class Payment extends BaseEntity {
     }
 
     public void edit(String description, BigDecimal amount, BigDecimal feeAmount,
-                     PaymentType paymentType, LocalDate paidDate,
-                     Contact paidBy, Contact paidFor, boolean refunded) {
+                     LocalDate paidDate, boolean refunded) {
         this.description = description;
         this.amount = amount;
         this.feeAmount = feeAmount;
-        this.paymentType = paymentType;
         this.paidDate = paidDate;
-        this.paidBy = paidBy;
-        this.paidFor = paidFor;
         this.refunded = refunded;
     }
 }
