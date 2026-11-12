@@ -3,9 +3,7 @@ package com.math.payment.application.contact.specification;
 import com.math.payment.application.contact.specification.filter.ContactFilter;
 import com.math.payment.domain.contact.entity.Contact;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Component;
 
-@Component
 public class ContactSpecification {
 
     public static Specification<Contact> filterWith(ContactFilter filter){

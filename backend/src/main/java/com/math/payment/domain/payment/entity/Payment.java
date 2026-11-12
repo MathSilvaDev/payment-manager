@@ -34,6 +34,7 @@ public class Payment extends BaseEntity {
     @Column(nullable = false)
     private PaymentType paymentType;
 
+    @Column(nullable = false)
     private LocalDate paidDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -44,15 +45,30 @@ public class Payment extends BaseEntity {
     @JoinColumn(name = "paid_for_contact_id")
     private Contact paidFor;
 
+    private boolean refunded;
+
     public Payment(String description, BigDecimal amount,
                    BigDecimal feeAmount, PaymentType paymentType,
-                   Contact paidBy, Contact paidFor, LocalDate paidDate) {
+                   LocalDate paidDate, Contact paidBy, Contact paidFor) {
         this.description = description;
         this.amount = amount;
         this.feeAmount = feeAmount;
         this.paymentType = paymentType;
+        this.paidDate = paidDate;
         this.paidBy = paidBy;
         this.paidFor = paidFor;
+    }
+
+    public void edit(String description, BigDecimal amount, BigDecimal feeAmount,
+                     PaymentType paymentType, LocalDate paidDate,
+                     Contact paidBy, Contact paidFor, boolean refunded) {
+        this.description = description;
+        this.amount = amount;
+        this.feeAmount = feeAmount;
+        this.paymentType = paymentType;
         this.paidDate = paidDate;
+        this.paidBy = paidBy;
+        this.paidFor = paidFor;
+        this.refunded = refunded;
     }
 }
