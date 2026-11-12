@@ -81,7 +81,11 @@ public class PaymentServiceImpl implements PaymentService{
 
     @Override
     public void deleteById(Long id) {
+        Payment payment = paymentRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Payment not found"));
 
+        paymentRepository.delete(payment);
     }
 
     private PaymentResponse toResponse(Payment payment){
