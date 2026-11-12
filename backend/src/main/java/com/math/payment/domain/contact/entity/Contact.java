@@ -20,14 +20,14 @@ public class Contact extends BaseEntity {
     private String name;
 
     @Column(unique = true)
-    private String phoneNumber;
-
-    @Column(unique = true)
     private String email;
 
-    public Contact(String name, String phoneNumber, String email) {
+    @Column(unique = true)
+    private String phoneNumber;
+
+    public Contact(String name, String email, String phoneNumber) {
         this.name = name;
-        this.phoneNumber = phoneNumber;
         this.email = email;
+        this.phoneNumber = phoneNumber;
     }
 }
