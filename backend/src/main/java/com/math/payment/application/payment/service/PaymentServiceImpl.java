@@ -66,7 +66,17 @@ public class PaymentServiceImpl implements PaymentService{
     @Override
     @Transactional
     public void editById(Long id, EditPaymentRequest request) {
+        Payment payment = paymentRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Payment not found"));
 
+        payment.edit(
+                request.description(),
+                request.amount(),
+                request.feeAmount(),
+                request.paidDate(),
+                request.refunded()
+        );
     }
 
     @Override
