@@ -1,6 +1,7 @@
 package com.math.payment.application.contact.controller;
 
 import com.math.payment.application.contact.dto.request.CreateContactRequest;
+import com.math.payment.application.contact.dto.request.EditContactRequest;
 import com.math.payment.application.contact.dto.response.ContactResponse;
 import com.math.payment.application.contact.service.ContactServiceImpl;
 import com.math.payment.application.contact.specification.filter.ContactFilter;
@@ -35,4 +36,24 @@ public class ContactController {
                 .status(HttpStatus.CREATED)
                 .body(contactService.create(request));
     }
+
+    @PatchMapping(path = "/{id}", version = "1.0")
+    public ResponseEntity<Void> editById(@PathVariable Long id,
+                                     @Valid @RequestBody EditContactRequest request){
+        contactService.editById(id, request);
+
+        return ResponseEntity
+                .noContent()
+                .build();
+    }
+
+    @DeleteMapping(path = "/{id}", version = "1.0")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id){
+        contactService.deleteById(id);
+
+        return ResponseEntity
+                .noContent()
+                .build();
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.math.payment.application.contact.service;
 
 import com.math.payment.application.contact.dto.request.CreateContactRequest;
+import com.math.payment.application.contact.dto.request.EditContactRequest;
 import com.math.payment.application.contact.dto.response.ContactResponse;
 import com.math.payment.application.contact.specification.ContactSpecification;
 import com.math.payment.application.contact.specification.filter.ContactFilter;
@@ -12,7 +13,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
@@ -46,6 +51,29 @@ public class ContactServiceImpl implements ContactService {
         contactRepository.save(contact);
 
         return toResponse(contact);
+    }
+
+    @Override
+    @Transactional
+    public void editById(Long id, EditContactRequest request) {
+        Contact contact = contactRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Contact not found"));
+
+        contact.edit(
+                request.name(),
+                request.email(),
+                request.phoneNumber()
+        );
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        Contact contact = contactRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Contact not found"));
+
+        contactRepository.delete(contact);
     }
 
     private ContactResponse toResponse(Contact contact){
