@@ -1,1 +1,141 @@
-<p>payment works!</p>
+<div class="payments-page">
+  <header class="page-header">
+    <div>
+      <span class="eyebrow">WORKSPACE / PAYMENTS</span>
+      <h1>Payments</h1>
+      <p>Manage and organize your payments in one place.</p>
+    </div>
+    <div class="header-actions">
+      <a class="btn-secondary" routerLink="/contacts">Contacts</a>
+      <a class="btn-primary" routerLink="/create-payment">
+        <span class="plus">+</span>
+        New payment
+      </a>
+    </div>
+  </header>
+  <section class="payments-panel">
+    <div class="panel-header">
+      <div class="panel-title">
+        <div class="title-icon">$</div>
+        <div>
+          <h2>All payments</h2>
+          <p>Your payment directory</p>
+        </div>
+      </div>
+      <span class="page-badge">Page {{ pagePaymentResponse().number + 1 }}</span>
+    </div>
+    <form class="filters" (ngSubmit)="search()">
+      <div class="field">
+        <label for="description">Description</label
+        ><input
+          id="description"
+          name="description"
+          placeholder="Search by description..."
+          [(ngModel)]="pageParams.filter.description"
+        />
+      </div>
+      <div class="field">
+        <label for="paymentType">Payment type</label
+        ><select id="paymentType" name="paymentType" [(ngModel)]="pageParams.filter.paymentType">
+          <option [ngValue]="null">All types</option>
+          <option value="PIX">PIX</option>
+          <option value="CREDIT_CARD">Credit card</option>
+          <option value="DEBIT_CARD">Debit card</option>
+          <option value="MONEY">Money</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="paidDate">Paid date</label
+        ><input
+          id="paidDate"
+          name="paidDate"
+          type="date"
+          [(ngModel)]="pageParams.filter.paidDate"
+        />
+      </div>
+      <div class="filter-actions">
+        <button type="submit" class="btn-primary">Search</button
+        ><button type="button" class="btn-secondary" (click)="clearFilters()">Clear</button>
+      </div>
+    </form>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>DESCRIPTION</th>
+            <th>AMOUNT</th>
+            <th>FEE AMOUNT</th>
+            <th>TYPE</th>
+            <th>PAID BY</th>
+            <th>PAID FOR</th>
+            <th>PAID DATE</th>
+            <th class="actions-column">ACTIONS</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (payment of pagePaymentResponse().content; track payment.id) {
+            <tr>
+              <td>
+                <div class="payment-info">
+                  <div class="avatar">$</div>
+                  <div class="payment-name">
+                    <strong>{{ payment.description }}</strong
+                    ><span>ID #{{ payment.id }}</span>
+                  </div>
+                </div>
+              </td>
+              <td class="muted">{{ payment.amount | number: '1.2-2' }}</td>
+              <td class="muted">{{ payment.feeAmount | number: '1.2-2' }}</td>
+              <td class="muted">{{ payment.paymentType }}</td>
+              <td class="muted">{{ payment.paidBy || '—' }}</td>
+              <td class="muted">{{ payment.paidFor || '—' }}</td>
+              <td class="muted">{{ payment.paidDate | date: "dd MMM yyyy"}}</td>
+              <td class="actions-column">
+                <div class="row-actions">
+                  <a class="btn-edit" [routerLink]="['/edit-payment', payment.id]">Edit</a>
+                  <button type="button" class="btn-delete" (click)="deletePayment(payment.id)">
+                    Delete
+                  </button>
+                </div>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="8">
+                <div class="empty-state">
+                  <div class="empty-icon">$</div>
+                  <h3>No payments found</h3>
+                  <p>Try changing your search filters.</p>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <footer class="pagination">
+      <div class="pagination-info">
+        Showing <strong>{{ pagePaymentResponse().content.length }}</strong> payments on this page
+      </div>
+      <div class="pagination-controls">
+        <button
+          type="button"
+          class="btn-page"
+          [disabled]="pagePaymentResponse().first"
+          (click)="changePage(-1)"
+        >
+          ← Previous</button
+        ><span class="current-page">{{ pagePaymentResponse().number + 1 }}</span
+        ><button
+          type="button"
+          class="btn-page"
+          [disabled]="pagePaymentResponse().last"
+          (click)="changePage(1)"
+        >
+          Next →
+        </button>
+      </div>
+    </footer>
+  </section>
+  <div class="bottom-note">PAYMENT MANAGEMENT SYSTEM <span>•</span> POWERED BY MATHEUS</div>
+</div>

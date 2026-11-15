@@ -1,0 +1,82 @@
+<div class="payment-page">
+  <header class="page-header">
+    <div>
+      <span class="eyebrow">WORKSPACE / PAYMENTS / EDIT</span>
+      <h1>Edit payment</h1>
+      <p>Update your payment information.</p>
+    </div>
+    <div class="header-actions">
+      <a class="btn-secondary" routerLink="/contacts">Contacts</a
+      ><a class="btn-secondary" routerLink="/payments">← Back to payments</a>
+    </div>
+  </header>
+  <section class="form-panel">
+    <div class="panel-header">
+      <div class="panel-icon">✎</div>
+      <div>
+        <h2>Payment information</h2>
+        <p>Modify the details of this payment.</p>
+      </div>
+    </div>
+    <form (ngSubmit)="edit()" class="payment-form">
+      <div class="form-group">
+        <label for="description">Description <span class="required">*</span></label
+        ><input
+          id="description"
+          name="description"
+          [(ngModel)]="paymentRequest().description"
+          required
+        />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="amount">Amount <span class="required">*</span></label
+          ><input
+            id="amount"
+            name="amount"
+            type="number"
+            step="0.01"
+            [(ngModel)]="paymentRequest().amount"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="feeAmount">Fee amount <span class="required">*</span></label
+          ><input
+            id="feeAmount"
+            name="feeAmount"
+            type="number"
+            step="0.01"
+            [(ngModel)]="paymentRequest().feeAmount"
+            required
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="paidDate">Paid date <span class="required">*</span></label
+        ><input
+          id="paidDate"
+          name="paidDate"
+          type="date"
+          [(ngModel)]="paymentRequest().paidDate"
+          required
+        />
+      </div>
+      <div class="form-group refund-field">
+        <label class="refund-control">
+          <input type="checkbox" name="refunded" [(ngModel)]="paymentRequest().refunded" />
+          <span class="refund-checkbox" aria-hidden="true"></span>
+          <span class="refund-copy">
+            <strong>Mark as refunded</strong>
+            <small>Indicate that this payment has been returned.</small>
+          </span>
+        </label>
+      </div>
+      <div class="form-footer">
+        <a class="btn-secondary" routerLink="/payments">Cancel</a
+        ><button class="btn-primary" type="submit">Save changes</button>
+      </div>
+    </form>
+  </section>
+  <div class="bottom-note">PAYMENT MANAGEMENT SYSTEM <span>•</span> POWERED BY MATHEUS</div>
+</div>

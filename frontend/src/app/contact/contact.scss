@@ -18,7 +18,7 @@ button {
 .contacts-page {
   max-width: 1440px;
   margin: auto;
-  padding: 64px 40px;
+  padding: clamp(28px, 5vw, 64px) clamp(16px, 4vw, 40px);
 }
 
 .page-header {
@@ -38,6 +38,7 @@ button {
   h1 {
     font-size: 36px;
     letter-spacing: -1.5px;
+    line-height: 1.1;
     margin: 12px 0 8px;
   }
 
@@ -55,7 +56,9 @@ button {
   color: #071810;
   border: none;
   border-radius: 8px;
-  padding: 12px 20px;
+  min-width: 132px;
+  min-height: 44px;
+  padding: 0 20px;
   font-size: 13px;
   font-weight: 700;
   white-space: nowrap;
@@ -130,7 +133,7 @@ button {
 
 .filters {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   gap: 14px;
   padding: 24px 30px;
   border-bottom: 1px solid #272c2e;
@@ -172,6 +175,16 @@ button {
 .filter-actions {
   display: flex;
   gap: 8px;
+
+  button {
+    min-width: 88px;
+  }
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .btn-secondary {
@@ -179,7 +192,9 @@ button {
   color: #d4d9db;
   border: 1px solid #363d3f;
   border-radius: 8px;
-  padding: 12px 16px;
+  min-width: 88px;
+  min-height: 44px;
+  padding: 0 16px;
   font-size: 13px;
   cursor: pointer;
 
@@ -298,7 +313,8 @@ table {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 8px 13px;
+  min-height: 36px;
+  padding: 0 13px;
   border-radius: 6px;
   font-size: 12px;
   font-weight: 600;
@@ -377,7 +393,8 @@ table {
   color: #cbd2d3;
   border: 1px solid #343a3c;
   border-radius: 7px;
-  padding: 9px 14px;
+  min-height: 38px;
+  padding: 0 14px;
   font-size: 12px;
   cursor: pointer;
 
@@ -421,6 +438,10 @@ table {
     flex-wrap: wrap;
   }
 
+  .page-header {
+    align-items: flex-start;
+  }
+
   .field {
     flex: 1 1 220px;
   }
@@ -442,6 +463,16 @@ table {
     h1 {
       font-size: 29px;
     }
+
+    .header-actions {
+      width: 100%;
+    }
+
+    .header-actions .btn-primary,
+    .header-actions .btn-secondary {
+      flex: 1;
+      width: auto;
+    }
   }
 
   .panel-header,
@@ -457,5 +488,18 @@ table {
 
   .pagination-controls {
     justify-content: space-between;
+
+    .btn-page {
+      flex: 1;
+    }
   }
+}
+
+.header-actions .btn-primary,
+.header-actions .btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 132px;
+  text-decoration: none;
 }
