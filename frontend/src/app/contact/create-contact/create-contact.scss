@@ -1,0 +1,269 @@
+
+:host {
+  display: block;
+  min-height: 100dvh;
+  background: #0c0e10;
+  color: #e9ecef;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+button, input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.contact-page {
+  max-width: 1050px;
+  margin: auto;
+  padding: 64px 40px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 40px;
+
+  .eyebrow {
+    color: #38b98b;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+
+  h1 {
+    font-size: 36px;
+    letter-spacing: -1.5px;
+    margin: 12px 0 8px;
+  }
+
+  p {
+    color: #82888e;
+    font-size: 14px;
+  }
+}
+
+.form-panel {
+  background: #141719;
+  border: 1px solid #272c2e;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 28px 32px;
+  border-bottom: 1px solid #272c2e;
+
+  .panel-icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 46px;
+    height: 46px;
+    border-radius: 10px;
+    background: #193b30;
+    border: 1px solid #275443;
+    color: #48d6a2;
+    font-size: 24px;
+  }
+
+  h2 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  p {
+    color: #81888b;
+    font-size: 12px;
+  }
+}
+
+.contact-form {
+  padding: 35px 32px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 30px;
+
+  label {
+    color: #dce2e0;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .required {
+    color: #35c794;
+    margin-left: 3px;
+  }
+
+  input {
+    width: 100%;
+    background: #0e1112;
+    border: 1px solid #303638;
+    border-radius: 8px;
+    color: #f1f4f2;
+    padding: 15px 16px;
+    font-size: 13px;
+    outline: none;
+    transition: 0.2s;
+
+    &::placeholder {
+      color: #626a6e;
+    }
+
+    &:hover {
+      border-color: #475250;
+    }
+
+    &:focus {
+      border-color: #35c794;
+      box-shadow: 0 0 0 3px #35c79415;
+    }
+  }
+
+  .field-hint {
+    color: #737c80;
+    font-size: 11px;
+    line-height: 1.5;
+  }
+}
+
+.form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 40px;
+  padding-top: 26px;
+  border-top: 1px solid #272c2e;
+}
+
+.btn-primary,
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: 0.2s;
+}
+
+.btn-primary {
+  background: #35c794;
+  color: #071810;
+  border: 1px solid #35c794;
+
+  &:hover {
+    background: #62e0b0;
+    border-color: #62e0b0;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.btn-secondary {
+  background: #252a2c;
+  color: #d4d9db;
+  border: 1px solid #363d3f;
+
+  &:hover {
+    background: #343b3e;
+    border-color: #4b5558;
+  }
+}
+
+.bottom-note {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 30px;
+  color: #51595c;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+}
+
+// Tablet
+@media (max-width: 900px) {
+  .contact-page {
+    padding: 35px 24px;
+  }
+}
+
+// Mobile
+@media (max-width: 600px) {
+  .contact-page {
+    padding: 28px 16px;
+  }
+
+  .page-header {
+    align-items: flex-start;
+    flex-direction: column;
+    margin-bottom: 28px;
+
+    h1 {
+      font-size: 29px;
+    }
+  }
+
+  .panel-header {
+    padding: 22px 20px;
+
+    .panel-icon {
+      width: 40px;
+      height: 40px;
+      font-size: 20px;
+    }
+
+    h2 {
+      font-size: 15px;
+    }
+  }
+
+  .contact-form {
+    padding: 26px 20px;
+  }
+
+  .form-group {
+    margin-bottom: 25px;
+
+    input {
+      padding: 14px;
+    }
+  }
+
+  .form-footer {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 10px;
+    margin-top: 30px;
+
+    .btn-primary,
+    .btn-secondary {
+      width: 100%;
+    }
+  }
+
+  .bottom-note {
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+}

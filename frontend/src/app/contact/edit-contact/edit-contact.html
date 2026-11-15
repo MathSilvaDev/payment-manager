@@ -1,0 +1,93 @@
+
+<div class="contact-page">
+  <header class="page-header">
+    <div>
+      <span class="eyebrow">WORKSPACE / CONTACTS / EDIT</span>
+      <h1>Edit contact</h1>
+      <p>Update your contact information.</p>
+    </div>
+
+    <a class="btn-secondary" href="/contacts">
+      ← Back to contacts
+    </a>
+  </header>
+
+  <section class="form-panel">
+    <div class="panel-header">
+      <div class="panel-icon">✎</div>
+      <div>
+        <h2>Contact information</h2>
+        <p>Modify the details of this contact.</p>
+      </div>
+    </div>
+
+    <form class="contact-form">
+      <div class="form-group">
+        <label for="name">
+          Full name <span class="required">*</span>
+        </label>
+        <input
+          id="name"
+          name="name"
+          type="text"
+          placeholder="Enter full name"
+          autocomplete="name"
+          required
+        />
+        <span class="field-hint">
+          Update the contact's full name.
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="email">
+          Email address <span class="required">*</span>
+        </label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          placeholder="example@email.com"
+          autocomplete="email"
+          required
+        />
+        <span class="field-hint">
+          Make sure the email address is correct.
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">
+          Phone number <span class="required">*</span>
+        </label>
+        <input
+          id="phone"
+          name="phoneNumber"
+          type="tel"
+          placeholder="(00) 00000-0000"
+          autocomplete="tel"
+          required
+        />
+        <span class="field-hint">
+          Include the area code with the phone number.
+        </span>
+      </div>
+
+      <div class="form-footer">
+        <a class="btn-secondary" href="/contacts">
+          Cancel
+        </a>
+
+        <button class="btn-primary" type="submit">
+          Save changes
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <div class="bottom-note">
+    CONTACT MANAGEMENT SYSTEM
+    <span>•</span>
+    POWERED BY ANGULAR
+  </div>
+</div>

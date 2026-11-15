@@ -1,0 +1,184 @@
+
+<div class="contacts-page">
+  <header class="page-header">
+    <div>
+      <span class="eyebrow">WORKSPACE / CONTACTS</span>
+      <h1>Contacts</h1>
+      <p>Manage and organize your contacts in one place.</p>
+    </div>
+
+    <a class="btn-primary" routerLink="/create-contact">
+      <span class="plus">+</span>
+      New contact
+    </a>
+  </header>
+
+  <section class="contacts-panel">
+    <div class="panel-header">
+      <div class="panel-title">
+        <div class="title-icon">◈</div>
+        <div>
+          <h2>All contacts</h2>
+          <p>Your contact directory</p>
+        </div>
+      </div>
+
+      <span class="page-badge">
+        Page {{ pageContactResponse().number + 1 }}
+      </span>
+    </div>
+
+    <form class="filters" (ngSubmit)="search()">
+      <div class="field">
+        <label for="name">Name</label>
+        <input
+          id="name"
+          name="name"
+          type="text"
+          placeholder="Search by name..."
+          [(ngModel)]="pageParams.filter.name"
+        />
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          name="email"
+          type="text"
+          placeholder="Search by email..."
+          [(ngModel)]="pageParams.filter.email"
+        />
+      </div>
+
+      <div class="field">
+        <label for="phone">Phone number</label>
+        <input
+          id="phone"
+          name="phone"
+          type="text"
+          placeholder="Search by phone..."
+          [(ngModel)]="pageParams.filter.phoneNumber"
+        />
+      </div>
+
+      <div class="filter-actions">
+        <button type="submit" class="btn-primary">
+          Search
+        </button>
+        <button
+          type="button"
+          class="btn-secondary"
+          (click)="clearFilters()"
+        >
+          Clear
+        </button>
+      </div>
+    </form>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>CONTACT</th>
+            <th>EMAIL ADDRESS</th>
+            <th>PHONE NUMBER</th>
+            <th>CREATED AT</th>
+            <th class="actions-column">ACTIONS</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (contact of pageContactResponse().content; track contact.id) {
+            <tr>
+              <td>
+                <div class="contact-info">
+                  <div class="avatar">
+                    {{ contact.name.charAt(0).toUpperCase() }}
+                  </div>
+                  <div class="contact-name">
+                    <strong>{{ contact.name }}</strong>
+                    <span>ID #{{ contact.id }}</span>
+                  </div>
+                </div>
+              </td>
+
+              <td class="muted">{{ contact.email }}</td>
+              <td class="muted">{{ contact.phoneNumber }}</td>
+              <td class="muted">
+                {{ contact.createdAt | date:'d MMM y' }}
+              </td>
+
+              <td class="actions-column">
+                <div class="row-actions">
+                  <a
+                    class="btn-edit"
+                    [routerLink]="['/edit-contact', contact.id]"
+                  >
+                    Edit
+                  </a>
+
+                  <button
+                    type="button"
+                    class="btn-delete"
+                    (click)="deleteContact(contact.id)"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="5">
+                <div class="empty-state">
+                  <div class="empty-icon">◎</div>
+                  <h3>No contacts found</h3>
+                  <p>Try changing your search filters.</p>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <footer class="pagination">
+      <div class="pagination-info">
+        Showing
+        <strong>{{ pageContactResponse().content.length }}</strong>
+        contacts on this page
+      </div>
+
+      <div class="pagination-controls">
+        <button
+          type="button"
+          class="btn-page"
+          [disabled]="pageContactResponse().first"
+          (click)="changePage(-1)"
+        >
+          ← Previous
+        </button>
+
+        <span class="current-page">
+          {{ pageContactResponse().number + 1 }}
+        </span>
+
+        <button
+          type="button"
+          class="btn-page"
+          [disabled]="pageContactResponse().last"
+          (click)="changePage(1)"
+        >
+          Next →
+        </button>
+      </div>
+    </footer>
+  </section>
+
+  <div class="bottom-note">
+    CONTACT MANAGEMENT SYSTEM
+    <span>•</span>
+    POWERED BY ANGULAR
+  </div>
+</div>
