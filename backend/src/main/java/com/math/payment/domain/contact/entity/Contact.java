@@ -32,8 +32,8 @@ public class Contact extends BaseEntity {
     }
 
     public void edit(String name, String email, String phoneNumber) {
-        this.name = name.isBlank() ? null : name;
-        this.email = email.isBlank() ? null : email;
-        this.phoneNumber = phoneNumber.isBlank() ? null : phoneNumber;
+        this.name = name;
+        this.email =  email;
+        this.phoneNumber =  phoneNumber;
     }
 }

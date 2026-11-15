@@ -31,6 +31,10 @@ export class ContactService {
     });
   }
 
+  getById(id: number): Observable<ContactResponse>{
+    return this.http.get<ContactResponse>(`${this.API_URL}/${id}`)
+  }
+
   create(createRequest: CreateContactRequest): Observable<ContactResponse>{
     return this.http.post<ContactResponse>(this.API_URL, createRequest)
   }

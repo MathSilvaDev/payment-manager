@@ -10,6 +10,8 @@ public interface ContactService {
 
     Page<ContactResponse> findAll(int pageNumber, int pageSize, ContactFilter contactFilter);
 
+    ContactResponse findById(Long id);
+
     ContactResponse create(CreateContactRequest request);
 
     void editById(Long id,EditContactRequest request);

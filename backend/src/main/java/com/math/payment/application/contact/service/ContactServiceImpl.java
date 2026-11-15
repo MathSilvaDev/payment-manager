@@ -40,6 +40,13 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
+    public ContactResponse findById(Long id) {
+        Contact contact = findByIdOrThrow(id);
+
+        return toResponse(contact);
+    }
+
+    @Override
     public ContactResponse create(CreateContactRequest request) {
         Contact contact = new Contact(
                 request.name(),
@@ -55,9 +62,7 @@ public class ContactServiceImpl implements ContactService {
     @Override
     @Transactional
     public void editById(Long id, EditContactRequest request) {
-        Contact contact = contactRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Contact not found"));
+        Contact contact = findByIdOrThrow(id);
 
         contact.edit(
                 request.name(),
@@ -68,9 +73,7 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public void deleteById(Long id) {
-        Contact contact = contactRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Contact not found"));
+        Contact contact = findByIdOrThrow(id);
 
         contactRepository.delete(contact);
     }
@@ -83,5 +86,11 @@ public class ContactServiceImpl implements ContactService {
                 contact.getPhoneNumber(),
                 contact.getCreatedAt()
         );
+    }
+
+    private Contact findByIdOrThrow(Long id){
+        return contactRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Contact not found"));
     }
 }

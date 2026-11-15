@@ -30,6 +30,13 @@ public class ContactController {
                 .body(contactService.findAll(pageNumber, pageSize, contactFilter));
     }
 
+    @GetMapping(path = "/{id}", version = "1.0")
+    public ResponseEntity<ContactResponse> findById(@PathVariable Long id){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(contactService.findById(id));
+    }
+
     @PostMapping(version = "1.0")
     public ResponseEntity<ContactResponse> create(@Valid @RequestBody CreateContactRequest request){
         return ResponseEntity

@@ -11,6 +11,8 @@ import { RouterLink } from '@angular/router';
   styleUrl: './create-contact.scss',
 })
 export class CreateContact {
+  
+  constructor(private contactService: ContactService){}
 
   contactRequest = signal<CreateContactRequest>({
     name: null,
@@ -18,7 +20,6 @@ export class CreateContact {
     phoneNumber: null
   });
 
-  constructor(private contactService: ContactService){}
 
   create(): void{
     this.contactService.create(this.contactRequest()).subscribe({
