@@ -1,6 +1,5 @@
 package com.math.payment.application.payment.service;
 
-import com.math.payment.application.contact.specification.ContactSpecification;
 import com.math.payment.application.payment.dto.request.CreatePaymentRequest;
 import com.math.payment.application.payment.dto.request.EditPaymentRequest;
 import com.math.payment.application.payment.dto.response.PaymentResponse;
@@ -44,9 +43,16 @@ public class PaymentServiceImpl implements PaymentService{
     }
 
     @Override
+    public PaymentResponse findById(Long id) {
+        Payment payment = findByIdOrThrow(id);
+
+        return toResponse(payment);
+    }
+
+    @Override
     public PaymentResponse create(CreatePaymentRequest request) {
-        Contact contactPaidBy = findContactById(request.paidById());
-        Contact contactPaidFor = findContactById(request.paidForId());
+        Contact contactPaidBy = findContactByIdOrThrow(request.paidById());
+        Contact contactPaidFor = findContactByIdOrThrow(request.paidForId());
 
         Payment payment = new Payment(
                 request.description(),
@@ -66,9 +72,7 @@ public class PaymentServiceImpl implements PaymentService{
     @Override
     @Transactional
     public void editById(Long id, EditPaymentRequest request) {
-        Payment payment = paymentRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Payment not found"));
+        Payment payment = findByIdOrThrow(id);
 
         payment.edit(
                 request.description(),
@@ -81,9 +85,7 @@ public class PaymentServiceImpl implements PaymentService{
 
     @Override
     public void deleteById(Long id) {
-        Payment payment = paymentRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Payment not found"));
+        Payment payment = findByIdOrThrow(id);
 
         paymentRepository.delete(payment);
     }
@@ -103,9 +105,16 @@ public class PaymentServiceImpl implements PaymentService{
         );
     }
 
-    private Contact findContactById(Long id){
+    private Payment findByIdOrThrow(Long id){
+        return paymentRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Payment not found"));
+    }
+
+    private Contact findContactByIdOrThrow(Long id){
         return contactRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "Contact not found"));
     }
+
 }

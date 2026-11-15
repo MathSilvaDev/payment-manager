@@ -30,6 +30,13 @@ public class PaymentController {
                 .body(paymentService.findAll(pageNumber, pageSize, paymentFilter));
     }
 
+    @GetMapping(path = "/{id}", version = "1.0")
+    public ResponseEntity<PaymentResponse> findById(@PathVariable Long id){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(paymentService.findById(id));
+    }
+
     @PostMapping(version = "1.0")
     public ResponseEntity<PaymentResponse> create(
             @Valid @RequestBody CreatePaymentRequest request){

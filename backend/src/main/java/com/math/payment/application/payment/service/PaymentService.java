@@ -10,6 +10,8 @@ public interface PaymentService {
 
     Page<PaymentResponse> findAll(int pageNumber, int pageSize, PaymentFilter paymentFilter);
 
+    PaymentResponse findById(Long id);
+
     PaymentResponse create(CreatePaymentRequest request);
 
     void editById(Long id, EditPaymentRequest request);
