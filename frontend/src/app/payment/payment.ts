@@ -21,7 +21,8 @@ export class Payment implements OnInit {
     pageNumber: 0,
     pageSize: 20,
     filter: { 
-      description: null, 
+      description: null,
+      transactionType: null,
       paymentType: null, 
       startPaidDate: null,
       endPaidDate: null,
@@ -58,6 +59,7 @@ export class Payment implements OnInit {
   clearFilters(): void {
     this.pageParams.filter = {
       description: null,
+      transactionType: null,
       paymentType: null,
       startPaidDate: null,
       endPaidDate: null,

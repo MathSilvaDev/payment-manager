@@ -35,6 +35,15 @@
         />
       </div>
       <div class="field">
+        <label for="transactionType">Payment type</label
+        ><select id="transactionType" name="transactionType" [(ngModel)]="pageParams.filter.transactionType">
+          <option [ngValue]="null">All types</option>
+          <option value="INCOME">INCOME</option>
+          <option value="EXPENSE">EXPENSE</option>
+        </select>
+      </div>
+
+      <div class="field">
         <label for="paymentType">Payment type</label
         ><select id="paymentType" name="paymentType" [(ngModel)]="pageParams.filter.paymentType">
           <option [ngValue]="null">All types</option>
