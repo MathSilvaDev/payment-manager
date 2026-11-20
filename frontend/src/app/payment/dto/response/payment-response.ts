@@ -8,5 +8,6 @@ export interface PaymentResponse {
   paidBy: string;
   paidFor: string;
   refunded: boolean;
+  transactionType: 'INCOME' | 'EXPENSE'
   createdAt: string;
 }

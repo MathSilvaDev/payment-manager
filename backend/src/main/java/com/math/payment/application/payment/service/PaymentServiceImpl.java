@@ -61,7 +61,8 @@ public class PaymentServiceImpl implements PaymentService{
                 request.paymentType(),
                 request.paidDate(),
                 contactPaidBy,
-                contactPaidFor
+                contactPaidFor,
+                request.transactionType()
         );
 
         paymentRepository.save(payment);
@@ -101,6 +102,7 @@ public class PaymentServiceImpl implements PaymentService{
                 payment.getPaidBy().getName(),
                 payment.getPaidFor().getName(),
                 payment.isRefunded(),
+                payment.getTransactionType(),
                 payment.getCreatedAt()
         );
     }

@@ -3,6 +3,7 @@ package com.math.payment.domain.payment.entity;
 import com.math.payment.domain.contact.entity.Contact;
 import com.math.payment.domain.entity.BaseEntity;
 import com.math.payment.domain.payment.enums.PaymentType;
+import com.math.payment.domain.payment.enums.TransactionType;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -47,9 +48,13 @@ public class Payment extends BaseEntity {
 
     private boolean refunded;
 
-    public Payment(String description, BigDecimal amount,
-                   BigDecimal feeAmount, PaymentType paymentType,
-                   LocalDate paidDate, Contact paidBy, Contact paidFor) {
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private TransactionType transactionType;
+
+    public Payment(String description, BigDecimal amount, BigDecimal feeAmount,
+                   PaymentType paymentType, LocalDate paidDate, Contact paidBy,
+                   Contact paidFor, TransactionType transactionType) {
         this.description = description;
         this.amount = amount;
         this.feeAmount = feeAmount;
@@ -57,6 +62,7 @@ public class Payment extends BaseEntity {
         this.paidDate = paidDate;
         this.paidBy = paidBy;
         this.paidFor = paidFor;
+        this.transactionType = transactionType;
     }
 
     public void edit(String description, BigDecimal amount, BigDecimal feeAmount,

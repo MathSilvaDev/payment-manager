@@ -13,7 +13,7 @@ public class PaymentSpecification {
         return Specification
                 .where(containsDescriptionIgnoreCaseSensitive(filter.description()))
                 .and(containsPaymentTypeIgnoreCaseSensitive(filter.paymentType()))
-                .and(paymentDateEquals(filter.paidDate()))
+                .and(paymentDateBetween(filter.startPaidDate(), filter.endPaidDate()))
                 .and(refundedEquals(filter.refunded()));
     }
 
@@ -37,11 +37,21 @@ public class PaymentSpecification {
                         "%" + paymentType.name().toLowerCase() + "%");
     }
 
-    private static Specification<Payment> paymentDateEquals(LocalDate paidDate){
-        return (root, query, cb) ->
-                paidDate == null
-                        ? null
-                        : cb.equal(root.get("paidDate"), paidDate);
+    private static Specification<Payment> paymentDateBetween(LocalDate startPaidDate,
+                                                             LocalDate endPaidDate){
+        return (root, query, cb) -> {
+            if(startPaidDate == null && endPaidDate == null){
+                return null;
+            }
+            else if(startPaidDate != null && endPaidDate != null){
+                return cb.between(root.get("paidDate"), startPaidDate, endPaidDate);
+            }
+            else if(startPaidDate != null){
+                return cb.greaterThanOrEqualTo(root.get("paidDate"), startPaidDate);
+            }
+            return cb.lessThanOrEqualTo(root.get("paidDate"), endPaidDate);
+        };
+
     }
 
     private static Specification<Payment> refundedEquals(Boolean refunded){

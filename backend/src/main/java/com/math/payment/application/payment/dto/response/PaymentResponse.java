@@ -1,6 +1,7 @@
 package com.math.payment.application.payment.dto.response;
 
 import com.math.payment.domain.payment.enums.PaymentType;
+import com.math.payment.domain.payment.enums.TransactionType;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -16,5 +17,6 @@ public record PaymentResponse(
         String paidBy,
         String paidFor,
         Boolean refunded,
+        TransactionType transactionType,
         Instant createdAt
 ) { }

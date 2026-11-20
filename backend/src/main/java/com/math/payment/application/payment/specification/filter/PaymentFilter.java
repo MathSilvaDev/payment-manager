@@ -7,6 +7,7 @@ import java.time.LocalDate;
 public record PaymentFilter(
         String description,
         PaymentType paymentType,
-        LocalDate paidDate,
+        LocalDate startPaidDate,
+        LocalDate endPaidDate,
         Boolean refunded
 ) { }

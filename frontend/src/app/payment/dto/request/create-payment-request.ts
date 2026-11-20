@@ -6,4 +6,5 @@ export interface CreatePaymentRequest {
   paidDate: string | null;
   paidById: number | null;
   paidForId: number | null;
+  transactionType: string | null
 }

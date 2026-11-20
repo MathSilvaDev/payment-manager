@@ -45,12 +45,21 @@
         </select>
       </div>
       <div class="field">
-        <label for="paidDate">Paid date</label
+        <label for="startPaidDate">Start paid date</label
         ><input
-          id="paidDate"
-          name="paidDate"
+          id="startPaidDate"
+          name="startPaidDate"
           type="date"
-          [(ngModel)]="pageParams.filter.paidDate"
+          [(ngModel)]="pageParams.filter.startPaidDate"
+        />
+      </div>
+      <div class="field">
+        <label for="endPaidDate">End paid date</label
+        ><input
+          id="endPaidDate"
+          name="endPaidDate"
+          type="date"
+          [(ngModel)]="pageParams.filter.endPaidDate"
         />
       </div>
       <div class="filter-actions">
@@ -77,11 +86,20 @@
             <tr>
               <td>
                 <div class="payment-info">
-                  <div class="avatar">$</div>
-                  <div class="payment-name">
-                    <strong>{{ payment.description }}</strong
-                    ><span>ID #{{ payment.id }}</span>
-                  </div>
+                  @if(payment.transactionType == 'INCOME'){
+                    <div class="avatar">$</div>
+                    <div class="payment-name">
+                      <strong>{{ payment.description }}</strong
+                      ><span>ID #{{ payment.id }}</span>
+                    </div>
+                  }@else{
+                    <div class="negative-avatar">$</div>
+                    <div class="payment-name">
+                      <strong>{{ payment.description }}</strong
+                      ><span>ID #{{ payment.id }}</span>
+                    </div>
+                  }
+                  
                 </div>
               </td>
               <td class="muted">{{ payment.amount | number: '1.2-2' }}</td>

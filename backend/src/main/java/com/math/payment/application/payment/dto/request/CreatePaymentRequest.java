@@ -1,6 +1,7 @@
 package com.math.payment.application.payment.dto.request;
 
 import com.math.payment.domain.payment.enums.PaymentType;
+import com.math.payment.domain.payment.enums.TransactionType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -14,5 +15,6 @@ public record CreatePaymentRequest(
         @NotNull PaymentType paymentType,
         @NotNull LocalDate paidDate,
         Long paidById,
-        Long paidForId
+        Long paidForId,
+        @NotNull TransactionType transactionType
 ) {}
