@@ -21,6 +21,7 @@ public class InitialDataInitializer implements CommandLineRunner {
 
     private void generateAppSettingsEntity(){
         appSettingsRepository.findFirstBy()
-                .orElseGet(() -> new AppSettings(BigDecimal.ZERO));
+                .orElseGet(() -> appSettingsRepository
+                        .save(new AppSettings(BigDecimal.ZERO)));
     }
 }

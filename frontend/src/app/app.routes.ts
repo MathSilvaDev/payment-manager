@@ -5,6 +5,7 @@ import { EditContact } from './contact/edit-contact/edit-contact';
 import { CreateContact } from './contact/create-contact/create-contact';
 import { CreatePayment } from './payment/create-payment/create-payment';
 import { EditPayment } from './payment/edit-payment/edit-payment';
+import { AppSettings } from './app-settings/app-settings';
 
 export const routes: Routes = [
   { path: '', component: Payment },
@@ -14,6 +15,7 @@ export const routes: Routes = [
   { path: 'payments', component: Payment },
   { path: 'create-payment', component: CreatePayment },
   { path: 'edit-payment/:id', component: EditPayment },
+  { path: 'settings', component: AppSettings },
 
   { path: '**', redirectTo: 'payments' },
 ];
