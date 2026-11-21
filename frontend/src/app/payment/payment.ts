@@ -3,9 +3,9 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { PaymentService } from './payment.service';
 import { PaymentFilter } from './dto/filter/payment-filter';
-import { PaymentResponse } from './dto/response/payment-response';
 import { GetParams, Page } from '../pageable/page';
 import { DatePipe, DecimalPipe } from '@angular/common';
+import { PaymentPageResponse } from './dto/response/payment-page-response';
 
 @Component({
   selector: 'app-payment',
@@ -30,16 +30,23 @@ export class Payment implements OnInit {
     },
   };
 
-  pagePaymentResponse = signal<Page<PaymentResponse[]>>({
-    content: [],
-    empty: true,
-    first: true,
-    last: true,
-    number: 0,
+  pagePaymentResponse = signal<PaymentPageResponse>({
+    paymentResponses: {
+      content: [],
+      empty: true,
+      first: true,
+      last: true,
+      number: 0,
+    },
+    totalAmount: 0,
   });
 
   ngOnInit(): void {
     this.getAll();
+  }
+
+  isNegativeTotalAmount(): boolean {
+    return String(this.pagePaymentResponse().totalAmount).includes('-');
   }
 
   getAll(): void {
@@ -69,7 +76,7 @@ export class Payment implements OnInit {
   }
 
   changePage(direction: number): void {
-    const page = this.pagePaymentResponse();
+    const page = this.pagePaymentResponse().paymentResponses;
     if ((direction < 0 && page.first) || (direction > 0 && page.last)) return;
     this.pageParams.pageNumber = page.number + direction;
     this.getAll();

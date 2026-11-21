@@ -48,6 +48,31 @@ p {
   align-items: center;
   gap: 8px;
 }
+.total-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 18px 22px;
+  background: #171a1d;
+  border: 1px solid #30363b;
+  border-radius: 10px;
+}
+.total-card span {
+  color: #aeb5bb;
+  font-size: 12px;
+}
+.total-card strong {
+  color: #48d6a2;
+  font-size: 20px;
+}
+.total-card strong.total-negative {
+  color: #ff6b6b;
+}
+.total-card strong.total-positive {
+  color: #48d6a2;
+}
 .header-actions .btn-primary,
 .header-actions .btn-secondary {
   min-width: 132px;

@@ -2,12 +2,14 @@ package com.math.payment.application.payment.service;
 
 import com.math.payment.application.payment.dto.request.CreatePaymentRequest;
 import com.math.payment.application.payment.dto.request.EditPaymentRequest;
+import com.math.payment.application.payment.dto.response.PaymentPageResponse;
 import com.math.payment.application.payment.dto.response.PaymentResponse;
 import com.math.payment.application.payment.specification.PaymentSpecification;
 import com.math.payment.application.payment.specification.filter.PaymentFilter;
 import com.math.payment.domain.contact.entity.Contact;
 import com.math.payment.domain.contact.repository.ContactRepository;
 import com.math.payment.domain.payment.entity.Payment;
+import com.math.payment.domain.payment.enums.TransactionType;
 import com.math.payment.domain.payment.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -20,6 +22,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
+
 @Service
 @RequiredArgsConstructor
 public class PaymentServiceImpl implements PaymentService{
@@ -28,8 +32,9 @@ public class PaymentServiceImpl implements PaymentService{
     private final ContactRepository contactRepository;
 
     @Override
-    public Page<PaymentResponse> findAll(int pageNumber, int pageSize, PaymentFilter filter) {
+    public PaymentPageResponse findAll(int pageNumber, int pageSize, PaymentFilter filter) {
         Specification<Payment> spec = PaymentSpecification.filterWith(filter);
+
         Pageable pageable = PageRequest.of(
                 pageNumber, pageSize,
                 Sort.by(
@@ -38,8 +43,28 @@ public class PaymentServiceImpl implements PaymentService{
                 )
         );
 
-        return paymentRepository.findAll(spec, pageable)
+        Page<PaymentResponse> paymentResponses = paymentRepository.findAll(spec, pageable)
                 .map(this::toResponse);
+
+        BigDecimal totalIncomeAmount = paymentRepository.findAll(spec)
+                .stream()
+                .filter(payment -> payment.getTransactionType() == TransactionType.INCOME)
+                .map(payment -> payment
+                        .getAmount()
+                        .add(payment.getFeeAmount()))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        BigDecimal totalExpensiveAmount = paymentRepository.findAll(spec)
+                .stream()
+                .filter(payment -> payment.getTransactionType() == TransactionType.EXPENSE)
+                .map(payment -> payment
+                        .getAmount()
+                        .add(payment.getFeeAmount()))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        BigDecimal totalAmount = totalIncomeAmount.subtract(totalExpensiveAmount);
+
+        return toPageResponse(paymentResponses, totalAmount);
     }
 
     @Override
@@ -104,6 +129,14 @@ public class PaymentServiceImpl implements PaymentService{
                 payment.isRefunded(),
                 payment.getTransactionType(),
                 payment.getCreatedAt()
+        );
+    }
+
+    private PaymentPageResponse toPageResponse(Page<PaymentResponse> pageResponse,
+                                               BigDecimal value){
+        return new PaymentPageResponse(
+                pageResponse,
+                value
         );
     }
 

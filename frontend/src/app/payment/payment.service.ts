@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Page } from '../pageable/page';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { PaymentResponse } from './dto/response/payment-response';
 import { PaymentFilter } from './dto/filter/payment-filter';
 import { CreatePaymentRequest } from './dto/request/create-payment-request';
 import { EditPaymentRequest } from './dto/request/edit-payment-request';
+import { PaymentPageResponse } from './dto/response/payment-page-response';
 
 @Injectable({
   providedIn: 'root',
@@ -19,12 +19,12 @@ export class PaymentService {
     pageNumber: number,
     pageSize: number,
     filter: PaymentFilter,
-  ): Observable<Page<PaymentResponse[]>> {
+  ): Observable<PaymentPageResponse> {
     const params: any = { ...filter };
     Object.keys(params).forEach((key) => {
       if (params[key] == null) delete params[key];
     });
-    return this.http.get<Page<PaymentResponse[]>>(this.API_URL, {
+    return this.http.get<PaymentPageResponse>(this.API_URL, {
       params: { pageNumber, pageSize, ...params },
     });
   }

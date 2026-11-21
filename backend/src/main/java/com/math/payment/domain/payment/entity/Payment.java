@@ -71,6 +71,12 @@ public class Payment extends BaseEntity {
         this.amount = amount;
         this.feeAmount = feeAmount;
         this.paidDate = paidDate;
-        this.refunded = refunded;
+
+        //you can refund only once
+        if(!this.refunded && refunded && transactionType == TransactionType.EXPENSE){
+            transactionType = TransactionType.INCOME;
+            this.refunded = true;
+        }
     }
+
 }

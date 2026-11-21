@@ -13,6 +13,15 @@
       </a>
     </div>
   </header>
+  <div class="total-card">
+    <span>Total filtered amount</span>
+    <strong
+      [class.total-negative]="isNegativeTotalAmount()"
+      [class.total-positive]="!isNegativeTotalAmount()"
+    >
+      {{ pagePaymentResponse().totalAmount | number: '1.2-2' }}
+    </strong>
+  </div>
   <section class="payments-panel">
     <div class="panel-header">
       <div class="panel-title">
@@ -22,7 +31,7 @@
           <p>Your payment directory</p>
         </div>
       </div>
-      <span class="page-badge">Page {{ pagePaymentResponse().number + 1 }}</span>
+      <span class="page-badge">Page {{ pagePaymentResponse().paymentResponses.number + 1 }}</span>
     </div>
     <form class="filters" (ngSubmit)="search()">
       <div class="field">
@@ -91,7 +100,7 @@
           </tr>
         </thead>
         <tbody>
-          @for (payment of pagePaymentResponse().content; track payment.id) {
+          @for (payment of pagePaymentResponse().paymentResponses.content; track payment.id) {
             <tr>
               <td>
                 <div class="payment-info">
@@ -142,21 +151,21 @@
     </div>
     <footer class="pagination">
       <div class="pagination-info">
-        Showing <strong>{{ pagePaymentResponse().content.length }}</strong> payments on this page
+        Showing <strong>{{ pagePaymentResponse().paymentResponses.content.length }}</strong> payments on this page
       </div>
       <div class="pagination-controls">
         <button
           type="button"
           class="btn-page"
-          [disabled]="pagePaymentResponse().first"
+          [disabled]="pagePaymentResponse().paymentResponses.first"
           (click)="changePage(-1)"
         >
           ← Previous</button
-        ><span class="current-page">{{ pagePaymentResponse().number + 1 }}</span
+        ><span class="current-page">{{ pagePaymentResponse().paymentResponses.number + 1 }}</span
         ><button
           type="button"
           class="btn-page"
-          [disabled]="pagePaymentResponse().last"
+          [disabled]="pagePaymentResponse().paymentResponses.last"
           (click)="changePage(1)"
         >
           Next →

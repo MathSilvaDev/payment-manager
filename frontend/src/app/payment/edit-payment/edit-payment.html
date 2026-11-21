@@ -63,12 +63,17 @@
         />
       </div>
       <div class="form-group refund-field">
-        <label class="refund-control">
-          <input type="checkbox" name="refunded" [(ngModel)]="paymentRequest().refunded" />
+          <label class="refund-control">
+          <input
+            type="checkbox"
+            name="refunded"
+            [(ngModel)]="paymentRequest().refunded"
+            [disabled]="!canEditRefund()"
+          />
           <span class="refund-checkbox" aria-hidden="true"></span>
           <span class="refund-copy">
             <strong>Mark as refunded</strong>
-            <small>Indicate that this payment has been returned.</small>
+            <small>{{ refundHelpText() }}</small>
           </span>
         </label>
       </div>
